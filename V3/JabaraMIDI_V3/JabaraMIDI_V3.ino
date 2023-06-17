@@ -18,7 +18,24 @@ void setup() {
   Engine::begin();
 }
 
+class FrequencyReporter {
+ private:
+  int intervalMillis = 1000;
+  uint64_t reportCycle;
+
+ public:
+  void report() {
+    auto cycle = millis() / intervalMillis;
+    if (cycle != reportCycle) {
+      Serial.println(Engine::taskCount);
+      reportCycle = cycle;
+      Engine::taskCount = 0;
+    }
+  }
+} reporter;
+
 void loop() {
   Controller::process();
+  // reporter.report();
   delay(50);
 }

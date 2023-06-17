@@ -36,6 +36,7 @@ class View {
   View(M5GFX& gfx, ViewData& data, ViewState& state);
   void begin();
   void draw();
+  void drawPowerBar(int value, int range);
 
  private:
   void drawMenuItems();
