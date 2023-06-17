@@ -74,4 +74,7 @@ void Controller::process() {
   if (redrawScreen) {
     ui.draw();
   }
+
+  ui.drawPowerBar(Engine::lastValue - Engine::config.minValue,
+                  max(127 - Engine::config.minValue, 1));
 }

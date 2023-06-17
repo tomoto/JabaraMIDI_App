@@ -25,7 +25,7 @@ void View::begin() {
   gfx.fillScreen(TFT_BLACK);
 
   menuItemsSprite.createSprite(gfx.width(), 30);
-  dataSprite.createSprite(gfx.width(), 98);
+  dataSprite.createSprite(gfx.width(), 90);
   playSprite.createSprite(gfx.width(), gfx.height());
 
   reverseBits(muteImage, muteImageWidth * muteImageHeight / 8);
@@ -125,6 +125,17 @@ void View::drawMenuScreen() {
   drawMenuItems();
   dataRenderers[state.menuItem]();
 
-  menuItemsSprite.pushSprite(0, 0);
-  dataSprite.pushSprite(0, 30);
+  menuItemsSprite.pushSprite(0, 6);
+  dataSprite.pushSprite(0, 36);
+}
+
+void View::drawPowerBar(int value, int range) {
+  float p = float(value) / range;
+  uint16_t color = p >= 1.0   ? TFT_RED
+                   : p > 0.75 ? TFT_ORANGE
+                   : p > 0.5  ? TFT_YELLOW
+                              : TFT_GREEN;
+  int w = p * 128;
+  gfx.fillRect(0, 0, w, 4, color);
+  gfx.fillRect(w, 0, 128 - w, 4, TFT_BLACK);
 }
